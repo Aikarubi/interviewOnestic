@@ -1,4 +1,20 @@
-FROM php:7.3.3-apache
-RUN docker-php-ext-install mysqli
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive 
+ENV TZ=Europe/Madrid
+
+RUN apt-get update \
+    && apt-get install -y apache2 \
+    && apt-get install -y php \
+    && apt-get install -y libapache2-mod-php \
+    && apt-get install -y php-mysql \
+    && apt-get install -y php-pdo-mysql \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+
 EXPOSE 80
-ENV APACHE_DOCUMENT_ROOT /var/www/html
+
+ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

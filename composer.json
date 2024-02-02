@@ -1,0 +1,11 @@
+{
+    "name": "nere/app",
+    "require": {
+        "twig/twig": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nere\\App\\": "src/"
+        }
+    }
+}
